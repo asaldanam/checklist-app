@@ -1,0 +1,168 @@
+// SETTINGS
+
+$font_main: 'Source Sans Pro', sans-serif;
+
+$color_blue: #0084FF;
+$color_blueGrey: #656588;
+$color_blueGreyLight: #B5B5D9;
+$color_blueGreyBg: #F5F5F8;
+$color_darker: #262631;
+
+
+@keyframes 
+
+// GENERAL STYLES
+
+@import 
+url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,700");
+
+body {
+  font-family: $font_main;
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.g-title {
+  font-size: 1.5rem;
+  color: $color_darker;
+  font-weight: 300
+}
+
+.g-link {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 3px;
+
+  & > span {
+    position: relative;
+    bottom: 1px;
+    padding: 0 6px;
+    color: $color_blue
+  }
+}
+
+.g-section {
+
+}
+
+.g-item {
+  color: $color_blueGrey;
+}
+
+// LAYOUT
+
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.o-app-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+.o-page {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  padding: 16px;
+}
+
+.o-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.o-section {
+  margin-top: 1.5rem;
+}
+
+// COMPONENTS
+.c-list-item {
+  height: 48px;
+  padding: 3px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; 
+
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 0px 3px 12px 0px transparentize($color_darker, 0.9);
+}
+
+.c-list-item-text {
+  position: relative;
+  bottom: 1px;
+}
+
+.c-list-item-check {
+  height: 24px;
+  width: 24px;
+  margin-right: 16px;
+  position: relative;
+
+  border-radius: 2px;
+  background-color: $color_blueGreyBg;
+
+  .c-list-item-check-icon {
+    height: 16px;
+    width: 16px;
+    position: relative;
+    left: 4px;
+    top: 4px;
+    &:before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: white;
+      height: 2px;
+      width: 0px;
+      border-radius: 100px;
+      transform-origin: top left;
+      transform: translate(1px, 7px) rotate(45deg);
+    }
+    &:after {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: white;
+      height: 2px;
+      width: 0px;
+      border-radius: 100px;
+      transform-origin: top left;
+      transform: translate(4px, 12.75px) rotate(-45deg);
+    }
+  }
+
+  &.--checked {
+   background-color: $color_blueGreyLight; 
+   .c-list-item-check-icon {
+     opacity: 1;
+     transition: opacity 0.4s linear;
+     &:before {
+        width: 8px;
+        transition: width 0.2s ease-in-out 0s
+     }
+     &:after {
+        width: 16px;
+        transition: width 0.2s ease-in-out 0.2s
+     }
+   }
+  }
+}
+
+
