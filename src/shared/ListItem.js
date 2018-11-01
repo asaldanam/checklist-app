@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fs from '../../firestore';
+import fs from '../firestore';
 
 class ListItem extends Component {
 
@@ -10,9 +10,6 @@ class ListItem extends Component {
 
   handleCheck() {
     console.log(this.props.docId);
-    // fs.getCollection('products').doc(this.props.docId).onSnapshot(collection => {
-    //   console.log(collection.data());
-    // })
     fs.getCollection('products').doc(this.props.docId).update({'checked': !this.props.productData.checked})
   }
 

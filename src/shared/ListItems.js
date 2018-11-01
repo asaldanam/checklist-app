@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import fs from './../../firestore';
+import fs from '../firestore';
 import ListItem from './ListItem';
 
 class ListItems extends Component {

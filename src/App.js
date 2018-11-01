@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 // Pages
-import List from './pages/list/List.js';
+import List from './pages/List.js';
 
 class App extends Component {
 

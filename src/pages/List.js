@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // Images
-import imgArrowIcon from './../../assets/i-arrow-blue.svg';
+import iconProducts from '../assets/icon/products.svg';
 // Components
-import ListItems from './ListItems';
+import ListItems from '../shared/ListItems';
 
 class List extends Component {
 
@@ -25,7 +25,7 @@ class List extends Component {
             <div className="g-title">Lista de la compra</div>
             <div className="g-link">
               <span>Ver productos</span>
-              <img src= {imgArrowIcon} alt=""/>
+              <img src= {iconProducts} alt=""/>
             </div>
           </header>
 
