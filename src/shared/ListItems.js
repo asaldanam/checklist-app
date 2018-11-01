@@ -15,8 +15,8 @@ class ListItems extends Component {
   };
 
   componentDidMount() {
-    fs.getCollection('products')
-      .orderBy('name', 'asc') 
+    fs.collection('products')
+      .orderBy('name', 'asc')
       .onSnapshot(collection => {
         this.setState({
           loaded: true,
@@ -28,12 +28,13 @@ class ListItems extends Component {
   render() {
     if(this.state.loaded) {
       return ( 
-        <section className="o-section">
+        <section>
           {this.state.list.map((item) => 
             <ListItem
               key={item.id}
               docId={item.id}
-              productData={item.data()}>
+              productData={item.data()}
+            >
             </ListItem>
           )}
         </section>
@@ -48,9 +49,9 @@ class ListItems extends Component {
   }
 
   componentWillUnmount() {
-    const unsubscribe = fs.getCollection('products').onSnapshot(() => {})
+    const unsubscribe = fs.collection('products').onSnapshot(() => {})
     unsubscribe();
-    console.log('call unsubscribe')
+    console.log('call unsubscribe');
   }
 }
 

@@ -5,21 +5,35 @@ class ListItem extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      checkState: ''
+    };
   };
+  componentDidMount() {
+    this.setState({
+      checkState: this.props.checkState
+    })
+  }
 
   handleCheck() {
-    console.log(this.props.docId);
-    fs.getCollection('products').doc(this.props.docId).update({'checked': !this.props.productData.checked})
+    fs.collection('products')
+      .doc(this.props.docId)
+      .update({'checked': !this.props.productData.checked})
   }
 
   render() {
     return ( 
-      <div onClick={() => this.handleCheck()} className="c-list-item">
-        <div className={ 'c-list-item-check ' + (this.props.productData.checked ? '--checked' : '') }>
-          <div className="c-list-item-check-icon"></div>
+      <div
+      onClick={() => this.handleCheck()}
+      className={ `c-listitem --${this.props.productData.checked ? 'checked-opacity' : 'list'} `} 
+      >
+        <div className="c-listitem-stateicon">
+          <div className="a"></div>
+          <div className="b"></div>
         </div>
-        <span className="g-item c-list-item-text">{this.props.productData.name}</span>
+        <div className="c-listitem-text">
+          <span> {this.props.productData.name} </span>
+        </div>
       </div>
     );
   }

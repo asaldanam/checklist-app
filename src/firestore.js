@@ -34,15 +34,6 @@ firebase.firestore().enablePersistence()
   });
 
 
-const fs = {
-
-  changes: {
-    includeQueryMetadataChanges: true
-  },
-
-  getCollection: (collectionId) => {
-    return firebase.firestore().collection(collectionId);
-  }
-};
+const fs = firebase.firestore();
 
 export default fs;
