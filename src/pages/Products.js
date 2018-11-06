@@ -12,10 +12,12 @@ class Products extends Component {
 
   render() {
     return ( 
-      <div className={`o-page o-route-products`} >
-        {/* <Topbar 
+      <div className={`o-page ${this.props.history.action}`}>
+        <Topbar
+          history={this.props.history}
+          displayBack={true} 
           title={'Productos'}
-        ></Topbar> */}
+        ></Topbar>
         <section className="o-section">
           asdfasdf
         </section>

@@ -15,8 +15,8 @@ class List extends Component {
 
   render() {
     return ( 
-      <div className={`o-page o-route-list`}>
-        <Topbar title={'Lista'}></Topbar>
+      <div className={`o-page ${this.props.history.action}`}>
+        <Topbar title={'Lista'} displayProducts={true}></Topbar>
         <section className="o-section">
           <ListItems></ListItems>
         </section>

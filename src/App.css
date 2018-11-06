@@ -17,26 +17,6 @@
   font-weight: 400;
   font-style: normal; }
 
-@keyframes go-out {
-  0% {
-    position: absolute;
-    transform: translateX(0%);
-    opacity: 1; }
-  100% {
-    position: absolute;
-    transform: translateX(-100%);
-    opacity: 0; } }
-
-@keyframes go-in {
-  0% {
-    position: absolute;
-    transform: translateX(100%); }
-  99% {
-    position: absolute;
-    transform: translateX(0%); }
-  100% {
-    position: static; } }
-
 body {
   width: 100%;
   min-height: 100%;
@@ -47,24 +27,54 @@ body {
   body * {
     box-sizing: border-box; }
 
-#root {
+.o-app {
+  position: absolute;
   width: 100%;
-  min-height: 100%; }
-  #root .o-app-wrapper {
-    width: 100%;
-    min-height: 100%; }
-    #root .o-app-wrapper.--list .o-route-list {
-      display: block; }
-    #root .o-app-wrapper.--list .o-route-products {
-      display: none; }
-    #root .o-app-wrapper.--products .o-route-list {
-      animation: go-out 0.6s cubic-bezier(0.25, 0, 0, 1) forwards;
-      position: absolute;
-      transform: translateX(-100%);
-      opacity: 0; }
-    #root .o-app-wrapper.--products .o-route-products {
-      animation: go-in 0.6s cubic-bezier(0.25, 0, 0, 1) forwards;
-      position: static; }
+  height: 100%;
+  background-color: #000; }
+
+.o-page {
+  width: 100%;
+  min-height: 100%;
+  background-color: #fff; }
+
+.o-page.PUSH.fade-exit {
+  position: absolute;
+  opacity: 1;
+  z-index: 1; }
+
+.o-page.PUSH.fade-exit.fade-exit-active {
+  opacity: 0.5;
+  transition: all 0.75s cubic-bezier(0.25, 0, 0, 1); }
+
+.o-page.PUSH.fade-enter {
+  position: absolute;
+  z-index: 2;
+  transform: translateX(100%);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25); }
+
+.o-page.PUSH.fade-enter.fade-enter-active {
+  transform: translateX(0%);
+  transition: all 0.75s cubic-bezier(0.25, 0, 0, 1); }
+
+.o-page.POP.fade-exit {
+  position: absolute;
+  z-index: 2;
+  transform: translateX(0%);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25); }
+
+.o-page.POP.fade-exit.fade-exit-active {
+  transform: translateX(100%);
+  transition: all 0.75s cubic-bezier(0.25, 0, 0, 1); }
+
+.o-page.POP.fade-enter {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 1; }
+
+.o-page.POP.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: all 0.75s cubic-bezier(0.25, 0, 0, 1); }
 
 .c-topbar {
   padding-top: 64px; }
@@ -89,6 +99,10 @@ body {
     font-weight: 300; }
   .c-topbar .c-topbar-iconwrapper {
     margin-left: auto; }
+  .c-topbar .c-topbar-iconback {
+    height: 32px;
+    width: 10px;
+    margin-right: 12px; }
   .c-topbar .c-topbar-icon {
     width: 32px;
     height: 32px;
