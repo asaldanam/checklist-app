@@ -17,56 +17,93 @@
   font-weight: 400;
   font-style: normal; }
 
+@keyframes go-out {
+  0% {
+    position: absolute;
+    transform: translateX(0%);
+    opacity: 1; }
+  100% {
+    position: absolute;
+    transform: translateX(-100%);
+    opacity: 0; } }
+
+@keyframes go-in {
+  0% {
+    position: absolute;
+    transform: translateX(100%); }
+  99% {
+    position: absolute;
+    transform: translateX(0%); }
+  100% {
+    position: static; } }
+
 body {
+  width: 100%;
+  min-height: 100%;
   font-family: "akzidenz-grotesk", serif;
   color: #262631;
   font-weight: 400;
-  width: 100%;
-  height: 100%; }
+  width: 100%; }
   body * {
     box-sizing: border-box; }
 
 #root {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0; }
+  width: 100%;
+  min-height: 100%; }
   #root .o-app-wrapper {
-    position: relative;
     width: 100%;
     min-height: 100%; }
-  #root .o-page {
-    position: absolute;
+    #root .o-app-wrapper.--list .o-route-list {
+      display: block; }
+    #root .o-app-wrapper.--list .o-route-products {
+      display: none; }
+    #root .o-app-wrapper.--products .o-route-list {
+      animation: go-out 0.6s cubic-bezier(0.25, 0, 0, 1) forwards;
+      position: absolute;
+      transform: translateX(-100%);
+      opacity: 0; }
+    #root .o-app-wrapper.--products .o-route-products {
+      animation: go-in 0.6s cubic-bezier(0.25, 0, 0, 1) forwards;
+      position: static; }
+
+.c-topbar {
+  padding-top: 64px; }
+  .c-topbar .c-topbar-container {
+    padding-left: 16px;
+    padding-right: 16px;
+    position: fixed;
+    height: 64px;
     width: 100%;
-    min-height: 100%; }
-
-.c-topbar::before {
-  content: ' ';
-  width: 100%;
-  height: 64px;
-  display: block; }
-
-.c-topbar .c-topbar-container {
-  padding-left: 16px;
-  padding-right: 16px;
-  position: fixed;
-  height: 64px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; }
-
-.c-topbar .c-topbar-title {
-  font-size: 24px;
-  color: #262631;
-  font-weight: 300; }
-
-.c-topbar .c-topbar-iconwrapper {
-  margin-left: auto; }
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    z-index: 99;
+    border-bottom: 1px solid #F5F5F8; }
+  .c-topbar .c-topbar-title {
+    font-size: 24px;
+    color: #262631;
+    font-weight: 300; }
+  .c-topbar .c-topbar-iconwrapper {
+    margin-left: auto; }
+  .c-topbar .c-topbar-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: transparent;
+    outline: none;
+    box-shadow: none; }
+    .c-topbar .c-topbar-icon > img {
+      width: 100%;
+      height: 100%; }
 
 /* ListItem.js */
 .c-listitem {

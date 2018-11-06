@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Link } from "react-router-dom";
 
 // Components
 import Topbar from '../shared/Topbar';
@@ -13,11 +14,12 @@ class List extends Component {
   };
 
   render() {
-    console.log('render')
     return ( 
-      <div className="o-page">
-        <Topbar></Topbar>
-        <ListItems></ListItems>
+      <div className={`o-page o-route-list`}>
+        <Topbar title={'Lista'}></Topbar>
+        <section className="o-section">
+          <ListItems></ListItems>
+        </section>
       </div>
     );
   }

@@ -1,15 +1,53 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "La lista de compra",
+  "short_name": "La Lista",
+  "theme_color": "#262631",
+  "background_color": "#f5f5f8",
+  "display": "standalone",
+  "orientation": "portrait",
+  "Scope": "/",
+  "start_url": "/?utm_source=homescreen",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-72x72.png?alt=media&token=cd4f9178-8207-4377-bcbd-247047028e2f",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-96x96.png?alt=media&token=4c6b4ef5-5e85-4ca5-98f5-e83c91d18503",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-128x128.png?alt=media&token=57c1d636-ac0a-432f-92b4-ae463c96a0be",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-144x144.png?alt=media&token=ee66d144-9487-4229-b134-ed50971e8d95",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-152x152.png?alt=media&token=2bb06007-60d6-448e-8cc9-47d71291bba4",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-192x192.png?alt=media&token=2b824214-da22-4b63-9b91-458cceb83722",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-384x384.png?alt=media&token=06f87fe2-948a-4746-99ed-cf53e3bceae2",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/icon-512x512.png?alt=media&token=65eaf273-3af2-434a-ba1b-6db83a54359f",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "splash_pages": null
 }

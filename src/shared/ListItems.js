@@ -28,7 +28,7 @@ class ListItems extends Component {
   render() {
     if(this.state.loaded) {
       return ( 
-        <section>
+        <div>
           {this.state.list.map((item) => 
             <ListItem
               key={item.id}
@@ -37,13 +37,13 @@ class ListItems extends Component {
             >
             </ListItem>
           )}
-        </section>
+        </div>
       );
     } else {
       return ( 
-        <section className="o-section">
+        <div className="o-section">
           skeleton...
-        </section>
+        </div>
       );
     }
   }
@@ -51,7 +51,6 @@ class ListItems extends Component {
   componentWillUnmount() {
     const unsubscribe = fs.collection('products').onSnapshot(() => {})
     unsubscribe();
-    console.log('call unsubscribe');
   }
 }
 
