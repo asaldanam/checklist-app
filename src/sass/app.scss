@@ -15,6 +15,16 @@ $color_darker: #262631;
   padding-right: 16px;
 }
 
+@keyframes deleted-item {
+  from {
+    height: 48px;
+    opacity: 1;
+  }
+  to {
+    height: 0px;
+    opacity: 0;
+  }
+}
 
 body {
   width: 100%;
@@ -28,8 +38,8 @@ body {
 
   * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
   }
-
 }
 
 
@@ -39,67 +49,61 @@ body {
   height: 100%;
   background-color: #000;
   
+
+  .o-page {
+    width: 100%;
+    min-height: 100%;
+    background-color: #fff;
+  }
+  
+  .o-page.PUSH {
+    &.fade-exit {
+      position: absolute;
+      opacity: 1;
+      z-index: 1;
+    }
+    &.fade-exit.fade-exit-active {
+      opacity: 0.5;
+      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+    }
+    &.fade-enter{
+      position: absolute;
+      z-index: 2;
+      transform: translateX(100%);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+    }
+    &.fade-enter.fade-enter-active{
+      transform: translateX(0%);
+      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+    }
+  }
+  
+  .o-page.POP {
+    &.fade-exit {
+      position: absolute;
+      z-index: 2;
+      transform: translateX(0%);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+    }
+    &.fade-exit.fade-exit-active {
+      transform: translateX(100%);
+      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+    }
+    &.fade-enter{
+      position: absolute;
+      opacity: 0.5;
+      z-index: 1;
+    }
+    &.fade-enter.fade-enter-active{
+      opacity: 1;
+      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+    }
+  }
 }
 
-.o-page {
-  width: 100%;
-  min-height: 100%;
-  background-color: #fff;
-}
-
-.o-page.PUSH {
-  &.fade-exit {
-    position: absolute;
-    opacity: 1;
-    z-index: 1;
-  }
-  &.fade-exit.fade-exit-active {
-    opacity: 0.5;
-    transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
-  }
-  &.fade-enter{
-    position: absolute;
-    z-index: 2;
-    transform: translateX(100%);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-  }
-  &.fade-enter.fade-enter-active{
-    transform: translateX(0%);
-    transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
-  }
-}
-
-.o-page.POP {
-  &.fade-exit {
-    position: absolute;
-    z-index: 2;
-    transform: translateX(0%);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-  }
-  &.fade-exit.fade-exit-active {
-    transform: translateX(100%);
-    transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
-  }
-  &.fade-enter{
-    position: absolute;
-    opacity: 0.5;
-    z-index: 1;
-  }
-  &.fade-enter.fade-enter-active{
-    opacity: 1;
-    transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
-  }
-}
 
 .c-topbar {
   padding-top: 64px;
-
-  // &::before {
-  //   content: ' ';
-  //   width: 100%;
-  //   height: 64px;
-  //   display: block;
-  // }
 
   .c-topbar-container {
     @include outerGaps();
@@ -112,7 +116,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: $color_blueGreyBg;
     z-index: 99;
     border-bottom: 1px solid $color_blueGreyBg;
   }
@@ -125,12 +129,17 @@ body {
 
   .c-topbar-iconwrapper {
     margin-left: auto;
+    height: 64px;
+    display: flex;
+    align-items: center;
   }
 
   .c-topbar-iconback {
-    height: 32px;
-    width: 10px;
-    margin-right: 12px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    width: 32px;
+    padding-bottom: 2px;
   }
 
   .c-topbar-icon {
@@ -156,16 +165,32 @@ body {
 /* ListItem.js */
 
 .c-listitem {
-  height: 42px;
-  @include outerGaps();
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  height: 48px;
+  position: relative;
+  -webkit-tap-highlight-color: transparentize($color_blueGrey, 0.75);
+  overflow-x: hidden;
+  background-color: red;
+  transition: all 0.5s linear;
+  border-bottom: 1px solid $color_blueGreyBg;
 
-  // &:focus {
-  //   background-color: $color_blueGreyBg;
-  // }
+  &.--deleted {
+    animation: deleted-item 500ms cubic-bezier(0.25, 0, 0, 1) forwards
+   }
 
+  .c-listitem-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    @include outerGaps();
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+
+    &.--animation {
+      transition: transform 0.5s cubic-bezier(0.25, 0, 0, 1);
+    }
+  }
 
   .c-listitem-text {
     transition: all .3s ease-in-out;
