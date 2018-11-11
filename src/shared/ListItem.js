@@ -8,16 +8,16 @@ class ListItem extends Component {
     super();
     this.state = {
       checkState: '',
-    };
-  };
-  componentDidMount() {
-    this.setState({
-      checkState: this.props.checkState,
       deleted: false,
       swipePosition: 0,
       swipeEnabled: true,
-      swipeAnimation: false
-    })
+      swipeAnimation: false,
+      isSwipping: false
+    };
+  };
+
+  componentDidMount() {
+    this.setState({ checkState: this.props.checkState, })
   }
 
   handleCheck() {
@@ -26,52 +26,81 @@ class ListItem extends Component {
       .update({'checked': !this.props.productData.checked})
   }
 
+  handleDelete() {
+    fs.collection('products')
+    .doc(this.props.docId)
+    .update({'onList': false})  
+  } 
+
   handleSwipeStart(event) {
-    // this.setState({ 
-    //   swipeAnimation: false
-    // });   
-  }
-
-  handleSwipeEnd(event) {
-    this.setState({  swipeEnabled: false, swipeAnimation: true,});
-    this.state.swipePosition < -100 ? 
-      this.setState({swipePosition: -window.innerWidth, deleted: true})
-      : this.setState({swipePosition: 0,})
-
-    setTimeout(() => {this.setState({ 
-      swipeEnabled: true, 
-      swipeAnimation: false,
-    });}, 500 );
+    this.setState({ 
+      isSwipping: true
+    });   
   }
 
   handleSwipeMove(position, event) {
-    if (position.x < 0 && this.state.swipeEnabled) {
-      this.setState({swipePosition: position.x})
+    if (position.x < -50 && this.state.swipeEnabled) {
+      this.setState({swipePosition: position.x + 50})
     }
     console.log(this.state.swipePosition); 
   }
 
+  handleSwipeEnd(event) {
+    
+    this.setState({  
+      swipeEnabled: false,
+      swipeAnimation: true,
+      isSwipping: false
+    });
+
+    if (this.state.swipePosition < -150) {
+      this.setState({swipePosition: -window.innerWidth, deleted: true})
+      setTimeout(() => { this.handleDelete(); }, 500 );
+    } else {
+      this.setState({swipePosition: 0,})
+    }
+
+    setTimeout(() => {
+      this.setState({ 
+        swipeEnabled: true, 
+        swipeAnimation: false,
+      });
+      }, 500 );
+  }
+
   render() {
+
+    //conditional className
+    const listStateStyle = this.props.productData.checked ? '--checked-opacity' : '--list'
+    const deletedStyle = this.state.deleted ? '--deleted' : ''
+    const animationStyle = this.state.swipeAnimation ? '--animation' : '';
+    const swippingStyle = this.state.isSwipping && this.state.swipePosition < 0 ? '--swipping' : '';
+    //conditional style
+    const positionStyle = { transform: `translateX(${this.state.swipePosition}px)` }
+
     return ( 
       <Swipe
-      onSwipeEnd={this.handleSwipeEnd.bind(this)}
       onSwipeStart={this.handleSwipeStart.bind(this)}
       onSwipeMove={this.handleSwipeMove.bind(this)}
+      onSwipeEnd={this.handleSwipeEnd.bind(this)}
       onClick={() => this.handleCheck()}
-      className={ `c-listitem --${this.props.productData.checked ? 'checked-opacity' : 'list'} --${this.state.deleted ? 'deleted' : ''} `} 
-      >
-      <div
-        className={`c-listitem-container ${this.state.swipeAnimation ? '--animation' : ''}`}
-        style={{transform: `translateX(${this.state.swipePosition}px)`}}>
+      className={ `c-listitem ${listStateStyle} ${deletedStyle}`} >
 
-        <div className="c-listitem-stateicon">
-          <div className="a"></div>
-          <div className="b"></div>
+      <div className={`c-listitem-wrapper ${animationStyle}`} style={positionStyle}>
+        <div className={`c-listitem-container ${swippingStyle}`}>
+          <div className="c-listitem-stateicon">
+            <div className="a"></div>
+            <div className="b"></div>
+          </div>
+          <div className="c-listitem-text">
+            <span> {this.props.productData.name} </span>
+          </div>
         </div>
-        <div className="c-listitem-text">
-          <span> {this.props.productData.name} </span>
+        <div className="c-listitem-swipeactions">
+          Eliminar
         </div>
       </div>
+     
       </Swipe>
     );
   }

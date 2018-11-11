@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
-import createBrowserHistory from "history/createBrowserHistory"
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import './App.css';
@@ -13,7 +12,7 @@ function Container ({location}) {
 
   return (
     <TransitionGroup className={`o-app`}>
-      <CSSTransition key={location.key} timeout={{ enter: 750, exit: 750 }} classNames={'fade'}>
+      <CSSTransition key={location.key} timeout={{ enter: 450, exit: 450 }} classNames={'fade'}>
         <Switch location={location}>
           <Route path="/" exact component={List} />
           <Route path="/products" exact component={Products} />
@@ -29,7 +28,10 @@ class App extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      scrollPosition: 0,
+      scrollDirection: 'up'
+    };
   };
   
   render() {

@@ -35,6 +35,10 @@ body {
   font-weight: 400;
   width: 100%;
 
+  ::-webkit-scrollbar {
+    background-color: red;
+  }
+
 
   * {
     box-sizing: border-box;
@@ -64,7 +68,7 @@ body {
     }
     &.fade-exit.fade-exit-active {
       opacity: 0.5;
-      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+      transition: all 0.45s cubic-bezier(0.25, 0, 0, 1);
     }
     &.fade-enter{
       position: absolute;
@@ -74,7 +78,7 @@ body {
     }
     &.fade-enter.fade-enter-active{
       transform: translateX(0%);
-      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+      transition: all 0.45s cubic-bezier(0.25, 0, 0, 1);
     }
   }
   
@@ -87,7 +91,7 @@ body {
     }
     &.fade-exit.fade-exit-active {
       transform: translateX(100%);
-      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+      transition: all 0.45s cubic-bezier(0.25, 0, 0, 1);
     }
     &.fade-enter{
       position: absolute;
@@ -96,11 +100,15 @@ body {
     }
     &.fade-enter.fade-enter-active{
       opacity: 1;
-      transition: all 0.75s cubic-bezier(0.25, 0, 0, 1);
+      transition: all 0.45s cubic-bezier(0.25, 0, 0, 1);
     }
   }
 }
 
+.c-listitems {
+  width: 100%;
+  overflow-x: hidden;
+}
 
 .c-topbar {
   padding-top: 64px;
@@ -116,9 +124,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $color_blueGreyBg;
+    background-color: white;
+    // background-color: $color_blueGreyBg;
     z-index: 99;
-    border-bottom: 1px solid $color_blueGreyBg;
+    // transition: all 0.2s ease-in-out;
+    box-shadow: 0px 0px 16px 0px transparentize($color_darker, 0.9);
+    
+    &.--scrolled {
+      border-color: transparent;
+    }
   }
 
   .c-topbar-title {
@@ -162,33 +176,68 @@ body {
   }
 }
 
-/* ListItem.js */
-
 .c-listitem {
+  width: calc(100% + 100px);
   height: 48px;
   position: relative;
   -webkit-tap-highlight-color: transparentize($color_blueGrey, 0.75);
   overflow-x: hidden;
-  background-color: red;
+  background-color: $color_blueGrey;
   transition: all 0.5s linear;
-  border-bottom: 1px solid $color_blueGreyBg;
+  // border-bottom: 1px solid $color_blueGreyBg;
 
   &.--deleted {
     animation: deleted-item 500ms cubic-bezier(0.25, 0, 0, 1) forwards
-   }
+  }
 
-  .c-listitem-container {
+  .c-listitem-wrapper {
     position: absolute;
+    width: calc(100% + 100px);
     height: 100%;
     width: 100%;
-    @include outerGaps();
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    &.--animation {
+      transition: transform 0.5s cubic-bezier(0.25, 0, 0, 1);
+    }
+  }
+
+  .c-listitem-swipeactions {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 15px 0px 10px -10px rgba(0, 0, 0, 0.10) inset;
+    font-size: 14px;
+  }
+  
+
+  .c-listitem-container {
+    // border-bottom: 1px solid $color_blueGreyBg;
+    height: 100%;
+    width: calc(100% - 100px);
     display: flex;
     justify-content: flex-start;
     align-items: center;
     background-color: white;
+    position: relative;
+    @include outerGaps();
 
-    &.--animation {
-      transition: transform 0.5s cubic-bezier(0.25, 0, 0, 1);
+    &::after {
+      content: '';
+      height: 1px;
+      width: calc(100% - 38px);
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      background-color: $color_blueGreyBg;
+    }
+
+    &.--swipping {
+      background-color: $color_blueGreyBg;
     }
   }
 

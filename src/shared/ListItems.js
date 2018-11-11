@@ -28,7 +28,7 @@ class ListItems extends Component {
   render() {
     if(this.state.loaded) {
       return ( 
-        <div>
+        <div className="c-listitems">
           {this.state.list.map((item) => 
             <ListItem
               key={item.id}
