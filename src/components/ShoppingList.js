@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import fs from '../firestore';
-import ListItem from './ListItem';
+import Product from './Product';
 
 class ListItems extends Component {
   
@@ -25,17 +25,33 @@ class ListItems extends Component {
       });
   }
 
+  handleCheck(productId) {
+    const localDocState = this.state.list.filter(item => item.id === productId)[0].data().checked;
+    fs.collection('products')
+      .doc(productId)
+      .update({'checked': !localDocState})
+  }
+
+  handleDelete(productId) {
+    fs.collection('products')
+      .doc(productId)
+      .update({'onList': false})  
+  }
+
   render() {
     if(this.state.loaded) {
       return ( 
-        <div className="c-listitems">
+        <div className="c-shoppinglist">
           {this.state.list.map((item) => 
-            <ListItem
+            <Product
+              onCheck={this.handleCheck.bind(this)}
+              onDelete={this.handleDelete.bind(this)}
               key={item.id}
-              docId={item.id}
+              productId={item.id}
               productData={item.data()}
+              status={item.data().checked ? '--checked-opacity' : '--list'}
             >
-            </ListItem>
+            </Product>
           )}
         </div>
       );

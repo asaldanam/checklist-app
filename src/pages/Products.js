@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // Components
-import Topbar from '../shared/Topbar';
+import Topbar from '../components/Topbar';
 
 class Products extends Component {
   

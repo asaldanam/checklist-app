@@ -5,7 +5,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import './App.css';
 
 // Pages
-import List from './pages/List.js';
+import Shopping from './pages/Shopping.js';
 import Products from './pages/Products.js';
 
 function Container ({location}) {
@@ -14,7 +14,7 @@ function Container ({location}) {
     <TransitionGroup className={`o-app`}>
       <CSSTransition key={location.key} timeout={{ enter: 450, exit: 450 }} classNames={'fade'}>
         <Switch location={location}>
-          <Route path="/" exact component={List} />
+          <Route path="/" exact component={Shopping} />
           <Route path="/products" exact component={Products} />
         </Switch>
       </CSSTransition>

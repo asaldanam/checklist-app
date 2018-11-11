@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 // import { BrowserRouter as Link } from "react-router-dom";
 
 // Components
-import Topbar from '../shared/Topbar';
-import ListItems from '../shared/ListItems';
+import Topbar from '../components/Topbar';
+import ShoppingList from '../components/ShoppingList';
 
-class List extends Component {
+class Shopping extends Component {
 
   
   constructor() {
@@ -18,7 +18,7 @@ class List extends Component {
       <div className={`o-page ${this.props.history.action}`}>
         <Topbar title={'Lista'} displayProducts={true}></Topbar>
         <section className="o-section">
-          <ListItems></ListItems>
+          <ShoppingList></ShoppingList>
         </section>
       </div>
     );
@@ -26,4 +26,4 @@ class List extends Component {
 
 }
 
-export default List;
+export default Shopping;
