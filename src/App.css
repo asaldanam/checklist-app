@@ -77,10 +77,9 @@ body {
   .o-app .o-page.POP.fade-enter.fade-enter-active {
     opacity: 1;
     transition: all 0.45s cubic-bezier(0.25, 0, 0, 1); }
-
-.c-shoppinglist {
-  width: 100%;
-  overflow-x: hidden; }
+  .o-app .o-list {
+    width: 100%;
+    overflow-x: hidden; }
 
 .c-topbar {
   padding-top: 64px; }
@@ -136,7 +135,6 @@ body {
   width: calc(100% + 100px);
   height: 48px;
   position: relative;
-  -webkit-tap-highlight-color: rgba(101, 101, 136, 0.25);
   overflow-x: hidden;
   background-color: #656588;
   transition: all 0.5s linear; }
@@ -169,6 +167,8 @@ body {
     align-items: center;
     background-color: white;
     position: relative;
+    -webkit-tap-highlight-color: rgba(101, 101, 136, 0.25);
+    transition: background-color .15s linear;
     padding-left: 16px;
     padding-right: 16px; }
     .c-product .c-product-container::after {
@@ -181,6 +181,14 @@ body {
       background-color: #F5F5F8; }
     .c-product .c-product-container.--swipping {
       background-color: #F5F5F8; }
+      .c-product .c-product-container.--swipping::after {
+        display: none; }
+      .c-product .c-product-container.--swipping .c-product-text {
+        opacity: 0.25;
+        transition-duration: .15s; }
+      .c-product .c-product-container.--swipping .c-product-stateicon {
+        opacity: 0.25;
+        transition-duration: .15s; }
   .c-product .c-product-text {
     transition: all .3s ease-in-out;
     font-size: 16px;
@@ -248,3 +256,7 @@ body {
     .c-product.--plus-opacity .c-product-stateicon .b {
       width: 12px;
       transform: rotate(0deg) translate(1px, 6px); }
+  .c-product.--plus-opacity .c-product-text {
+    opacity: 0.5; }
+    .c-product.--plus-opacity .c-product-text > span::before {
+      width: 100%; }

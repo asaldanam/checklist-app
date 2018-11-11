@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 // Images
 import iconProducts from '../assets/icon/products.svg';
 import iconBack from '../assets/icon/back.svg';
+import iconRefresh from '../assets/icon/refresh.svg';
 
 class Tobbar extends Component {
 
@@ -45,9 +46,14 @@ class Tobbar extends Component {
           <div className="c-topbar-title">{this.props.title}</div>
           <div className="c-topbar-iconwrapper">
             {this.props.displayProducts ? 
-            <Link to="/products">
-              <div><img src= {iconProducts} alt=""/></div>
-            </Link>
+              <Link to="/products">
+                <div><img src= {iconProducts} alt=""/></div>
+              </Link>
+            : null}
+            {this.props.onRefresh ? 
+              <div onClick={() => this.props.onRefresh()}>
+                <img src= {iconRefresh} alt=""/>
+              </div>
             : null}
           </div>
         </header>
