@@ -83,23 +83,27 @@ body {
 
 .c-topbar {
   padding-top: 64px; }
+  .c-topbar.--searchbar {
+    padding-top: 115px; }
   .c-topbar .c-topbar-container {
-    padding-left: 16px;
-    padding-right: 16px;
     position: fixed;
-    height: 64px;
     width: 100%;
     top: 0;
     left: 0;
     right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: white;
     z-index: 99;
     box-shadow: 0px 0px 16px 0px rgba(38, 38, 49, 0.1); }
     .c-topbar .c-topbar-container.--scrolled {
       border-color: transparent; }
+  .c-topbar .c-topbar-bar {
+    padding-left: 16px;
+    padding-right: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 64px; }
   .c-topbar .c-topbar-title {
     font-size: 24px;
     color: #262631;
@@ -130,6 +134,33 @@ body {
     .c-topbar .c-topbar-icon > img {
       width: 100%;
       height: 100%; }
+
+.c-searchbar {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px; }
+  .c-searchbar .c-searchbar-container {
+    position: relative; }
+  .c-searchbar .c-searchbar-icon {
+    position: absolute;
+    width: 16px;
+    top: 9px;
+    opacity: 0.5;
+    left: 12px; }
+  .c-searchbar .c-searchbar-input {
+    background-color: #F5F5F8;
+    color: gray;
+    font-family: "akzidenz-grotesk", serif;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    padding-left: 40px; }
+    .c-searchbar .c-searchbar-input::placeholder {
+      opacity: 0.25; }
 
 .c-product {
   width: calc(100% + 100px);

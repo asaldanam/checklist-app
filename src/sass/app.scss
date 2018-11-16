@@ -113,17 +113,16 @@ body {
 .c-topbar {
   padding-top: 64px;
 
-  .c-topbar-container {
-    @include outerGaps();
+  &.--searchbar {
+    padding-top: 115px;
+  }
+
+  .c-topbar-container { 
     position: fixed;
-    height: 64px;
     width: 100%;
     top: 0;
     left: 0;
     right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: white;
     // background-color: $color_blueGreyBg;
     z-index: 99;
@@ -133,6 +132,15 @@ body {
     &.--scrolled {
       border-color: transparent;
     }
+  }
+
+  .c-topbar-bar {
+    @include outerGaps();
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 64px;
   }
 
   .c-topbar-title {
@@ -174,6 +182,45 @@ body {
       height: 100%;
     }
   }
+}
+
+.c-searchbar {
+  @include outerGaps();
+  // padding-top: 16px;
+  // border-top: 1px solid $color_blueGreyBg;
+  padding-bottom: 16px;
+
+  .c-searchbar-container {
+    position: relative;
+  }
+
+  .c-searchbar-icon {
+    position: absolute;
+    width: 16px;
+    top: 9px;
+    opacity: 0.5;
+    left: 12px;
+  }
+
+  .c-searchbar-input {
+    background-color: $color_blueGreyBg;
+    color: lighten(black, 50%);
+    font-family: $font_main;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    padding-left: 12px + 16px + 12px;
+    // text-transform: capitalize;
+
+    &::placeholder {
+      opacity: 0.25;
+    }
+  }
+
 }
 
 .c-product {

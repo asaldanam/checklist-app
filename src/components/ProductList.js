@@ -21,17 +21,21 @@ class ProductList extends Component {
     fs.collection('products')
       .orderBy('name', 'asc')
       .onSnapshot(collection => {
+
+        const list = collection.docs.map(doc => {return {doc: doc, hide: false}})
+
         if(this._isMounted) {
           this.setState({
             loaded: true,
-            list: collection.docs
+            list: list
           })
+          this.props.list(list);
         }
       });
   }
 
   handleCheck(productId) {
-    const localDocState = this.state.list.filter(item => item.id === productId)[0].data().onList;
+    const localDocState = this.state.list.filter(item => item.doc.id === productId)[0].doc.data().onList;
     fs.collection('products')
       .doc(productId)
       .update({'onList': !localDocState, 'checked': false})
@@ -65,12 +69,11 @@ class ProductList extends Component {
             <Product
               onCheck={this.handleCheck.bind(this)}
               onDelete={this.handleDelete.bind(this)}
-              key={item.id}
-              productId={item.id}
-              productData={item.data()}
-              status={item.data().onList ? '--checked' : '--plus-opacity'}
-            >
-            </Product>
+              key={item.doc.id}
+              productId={item.doc.id}
+              productData={item.doc.data()}
+              status={item.doc.data().onList ? '--checked' : '--plus-opacity'}
+            />
           )}
         </div>
       );

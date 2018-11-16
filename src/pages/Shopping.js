@@ -16,9 +16,12 @@ class Shopping extends Component {
   render() {
     return ( 
       <div className={`o-page ${this.props.history.action}`}>
-        <Topbar title={'Mi compra'} displayProducts={true}></Topbar>
+        <Topbar 
+          title={'Mi compra'}
+          displayProducts={true}
+        />
         <section className="o-section">
-          <ShoppingList></ShoppingList>
+          <ShoppingList/>
         </section>
       </div>
     );

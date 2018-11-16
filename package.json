@@ -13,7 +13,7 @@
     "react-transition-group": "^2.5.0"
   },
   "scripts": {
-    "deploy": "firebase deploy",
+    "deploy": "react-scripts build && firebase deploy",
     "start": "react-scripts start",
     "sass": "node-sass src/sass/app.scss src/App.css --watch",
     "build": "react-scripts build",

@@ -58,8 +58,7 @@ class ShoppingList extends Component {
               productId={item.id}
               productData={item.data()}
               status={item.data().checked ? '--checked-opacity' : '--list'}
-            >
-            </Product>
+            />
           )}
         </div>
       );

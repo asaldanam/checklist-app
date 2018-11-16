@@ -23,10 +23,14 @@ class Products extends Component {
           history={this.props.history}
           displayBack={true} 
           title={'Productos'}
+          searchbar={true}
           onRefresh={this.onRefresh.bind(this)}
-        ></Topbar>
+        />
         <section className="o-section">
-          <ProductList ref={this.products}></ProductList>
+          <ProductList 
+            ref={this.products}
+            list={(list) => {}}
+          />
         </section>
       </div>
     );
