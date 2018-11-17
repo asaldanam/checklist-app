@@ -15,7 +15,7 @@ function Container ({location}) {
       <CSSTransition key={location.key} timeout={{ enter: 450, exit: 450 }} classNames={'fade'}>
         <Switch location={location}>
           <Route path="/" exact component={Shopping} />
-          <Route path="/products" exact component={Products} />
+          {/* <Route path="/products" exact component={Products} /> */}
         </Switch>
       </CSSTransition>
     </TransitionGroup>

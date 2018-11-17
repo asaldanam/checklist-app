@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Swipe from 'react-easy-swipe';
+import fs from '../firestore';
 
-class Product extends Component {
+class Product extends PureComponent {
 
   constructor() {
     super();
@@ -10,10 +11,11 @@ class Product extends Component {
       swipePosition: 0,
       swipeEnabled: true,
       swipeAnimation: false,
-      isSwipping: false
+      isSwipping: false,
+      name: '',
+      checked: false
     };
   };
-  
 
   deleteItem() {
     this.props.onDelete(this.props.productId);
@@ -54,12 +56,33 @@ class Product extends Component {
       }, 500 );
   }
 
-  render() {
+  handleCheck() {
+    const productId = this.props.productId
+    fs.collection('products')
+      .doc(productId)
+      .update({'checked': !this.state.checked})
+  }
 
+  componentDidMount(){
+    fs.collection('products')
+      .doc(this.props.productId)
+      .onSnapshot(doc => {
+        this.setState({
+          name: doc.data().name,
+          checked: doc.data().checked
+        });
+      })
+  }
+
+  render() {
+    console.log(this.state.name, this.state)
     //conditional className
     const deletedStyle = this.state.deleted ? '--deleted' : '';
     const animationStyle = this.state.swipeAnimation ? '--animation' : '';
     const swippingStyle = this.state.isSwipping && this.state.swipePosition < 0 ? '--swipping' : '';
+    const statusStyle = this.state.checked ? '--checked-opacity' : '--list'
+  
+
     //conditional style
     const positionStyle = { transform: `translateX(${this.state.swipePosition}px)` }
 
@@ -68,8 +91,8 @@ class Product extends Component {
       onSwipeStart={this.handleSwipeStart.bind(this)}
       onSwipeMove={this.handleSwipeMove.bind(this)}
       onSwipeEnd={this.handleSwipeEnd.bind(this)}
-      onClick={() => this.props.onCheck(this.props.productId)}
-      className={ `c-product ${this.props.status} ${deletedStyle}`} >
+      onClick={() => this.handleCheck()}
+      className={ `c-product ${statusStyle} ${deletedStyle}`} >
 
       <div className={`c-product-wrapper ${animationStyle}`} style={positionStyle}>
         <div className={`c-product-container ${swippingStyle}`}>
@@ -78,7 +101,7 @@ class Product extends Component {
             <div className="b"></div>
           </div>
           <div className="c-product-text">
-            <span> {this.props.productData.name} </span>
+            <span> {this.state.name} </span>
           </div>
         </div>
         <div className="c-product-swipeactions">

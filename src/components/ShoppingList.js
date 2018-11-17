@@ -1,10 +1,10 @@
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import fs from '../firestore';
 import Product from './Product';
 
-class ShoppingList extends Component {
+class ShoppingList extends PureComponent {
   
   constructor() {
     super();
@@ -24,20 +24,16 @@ class ShoppingList extends Component {
       .orderBy('name', 'asc')
       .onSnapshot(collection => {
         if(this._isMounted) {
+          const list = collection.docs.map(doc => ({
+            ref: doc.id,
+          }))
+
           this.setState({
             loaded: true,
-            list: collection.docs
+            list: list
           })
         }
       });
-  }
-
-  handleCheck(productId) {
-    const localDocState = this.state.list.filter(item => item.id === productId)[0].data().checked;
-    console.log(localDocState)
-    fs.collection('products')
-      .doc(productId)
-      .update({'checked': !localDocState})
   }
 
   handleDelete(productId) {
@@ -47,17 +43,15 @@ class ShoppingList extends Component {
   }
 
   render() {
+    console.log(this.state.list)
     if(this.state.loaded) {
       return ( 
         <div className="o-list">
           {this.state.list.map((item) => 
             <Product
-              onCheck={this.handleCheck.bind(this)}
-              onDelete={this.handleDelete.bind(this)}
-              key={item.id}
-              productId={item.id}
-              productData={item.data()}
-              status={item.data().checked ? '--checked-opacity' : '--list'}
+              type={'shopping'}
+              key={item.ref}
+              productId={item.ref}
             />
           )}
         </div>
