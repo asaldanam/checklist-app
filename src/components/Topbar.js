@@ -40,8 +40,8 @@ class Tobbar extends PureComponent {
     const searchbarPadding = hasSearchbar ? '--searchbar' : '';
 
     return ( 
-      <div className={`c-topbar ${searchbarPadding}`}>
-        <header className={`c-topbar-container`}>
+      <nav className={`c-topbar ${searchbarPadding}`}>
+        <div className={`c-topbar-container`}>
           <div className="c-topbar-bar">
             {this.props.displayBack ? 
             <div onClick={() => {this.props.history.goBack()}}className="c-topbar-iconback">
@@ -67,8 +67,8 @@ class Tobbar extends PureComponent {
             <Searchbar/>
           : null }
 
-        </header>
-      </div>
+        </div>
+      </nav>
     );
   }
 }

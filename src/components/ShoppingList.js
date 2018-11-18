@@ -43,10 +43,10 @@ class ShoppingList extends PureComponent {
   }
 
   render() {
-    console.log(this.state.list)
+    console.log(this.state);
     if(this.state.loaded) {
       return ( 
-        <div className="o-list">
+        <React.Fragment>
           {this.state.list.map((item) => 
             <Product
               type={'shopping'}
@@ -54,7 +54,7 @@ class ShoppingList extends PureComponent {
               productId={item.ref}
             />
           )}
-        </div>
+        </React.Fragment>
       );
     } else {
       return ( 
