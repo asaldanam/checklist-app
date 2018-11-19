@@ -29,7 +29,6 @@ class Products extends Component {
         <section className="o-section">
           <ProductList 
             ref={this.products}
-            list={(list) => {}}
           />
         </section>
       </div>

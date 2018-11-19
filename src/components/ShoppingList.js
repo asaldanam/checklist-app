@@ -1,10 +1,10 @@
 
 
-import React, { Component } from 'react';
-import fs from '../firestore';
+import React, { PureComponent } from 'react';
+import {db} from '../firestore';
 import Product from './Product';
 
-class ShoppingList extends Component {
+class ShoppingList extends PureComponent {
   
   constructor() {
     super();
@@ -18,49 +18,35 @@ class ShoppingList extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-
-    fs.collection('products')
+    db.collection('products')
       .where("onList", "==", true)
       .orderBy('name', 'asc')
       .onSnapshot(collection => {
         if(this._isMounted) {
+          const list = collection.docs.map(doc => ({
+            ref: doc.id,
+          }))
           this.setState({
             loaded: true,
-            list: collection.docs
+            list: list
           })
         }
-      });
-  }
-
-  handleCheck(productId) {
-    const localDocState = this.state.list.filter(item => item.id === productId)[0].data().checked;
-    console.log(localDocState)
-    fs.collection('products')
-      .doc(productId)
-      .update({'checked': !localDocState})
-  }
-
-  handleDelete(productId) {
-    fs.collection('products')
-      .doc(productId)
-      .update({'onList': false})  
+    });
   }
 
   render() {
+    console.log(this);
     if(this.state.loaded) {
       return ( 
-        <div className="o-list">
+        <React.Fragment>
           {this.state.list.map((item) => 
             <Product
-              onCheck={this.handleCheck.bind(this)}
-              onDelete={this.handleDelete.bind(this)}
-              key={item.id}
-              productId={item.id}
-              productData={item.data()}
-              status={item.data().checked ? '--checked-opacity' : '--list'}
+              type={'shopping'}
+              key={item.ref}
+              productId={item.ref}
             />
           )}
-        </div>
+        </React.Fragment>
       );
     } else {
       return ( 
@@ -73,7 +59,7 @@ class ShoppingList extends Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-    const unsubscribe = fs.collection('products').onSnapshot(() => {})
+    const unsubscribe = db.collection('products').onSnapshot(() => {})
     unsubscribe();
   }
 }

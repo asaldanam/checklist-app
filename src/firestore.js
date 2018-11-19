@@ -33,7 +33,28 @@ firebase.firestore().enablePersistence()
     }
   });
 
+export const db = firebase.firestore();
 
-const fs = firebase.firestore();
+export const fs = {
 
-export default fs;
+  switchCheck: (docRef, state) => {
+    db.collection('products')
+      .doc(docRef)
+      .update({'checked': state})
+  },
+
+  switchAdd: (docRef, state) => {
+    db.collection('products')
+      .doc(docRef)
+      .update({'onList': state})
+  },
+
+  delete: (docRef) => {
+    console.log('delete')
+    db.collection('products')
+      .doc(docRef)
+      .delete()
+  }
+}
+
+export default db;

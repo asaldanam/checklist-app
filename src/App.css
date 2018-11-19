@@ -77,7 +77,7 @@ body {
   .o-app .o-page.POP.fade-enter.fade-enter-active {
     opacity: 1;
     transition: all 0.45s cubic-bezier(0.25, 0, 0, 1); }
-  .o-app .o-list {
+  .o-app .o-section {
     width: 100%;
     overflow-x: hidden; }
 

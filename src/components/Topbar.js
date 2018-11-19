@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 import Searchbar from './Searchbar';
@@ -8,7 +8,7 @@ import iconProducts from '../assets/icon/products.svg';
 import iconBack from '../assets/icon/back.svg';
 import iconRefresh from '../assets/icon/refresh.svg';
 
-class Tobbar extends Component {
+class Tobbar extends PureComponent {
 
   constructor() {
     super();
@@ -40,8 +40,8 @@ class Tobbar extends Component {
     const searchbarPadding = hasSearchbar ? '--searchbar' : '';
 
     return ( 
-      <div className={`c-topbar ${searchbarPadding}`}>
-        <header className={`c-topbar-container`}>
+      <nav className={`c-topbar ${searchbarPadding}`}>
+        <div className={`c-topbar-container`}>
           <div className="c-topbar-bar">
             {this.props.displayBack ? 
             <div onClick={() => {this.props.history.goBack()}}className="c-topbar-iconback">
@@ -67,8 +67,8 @@ class Tobbar extends Component {
             <Searchbar/>
           : null }
 
-        </header>
-      </div>
+        </div>
+      </nav>
     );
   }
 }
