@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Swipe from 'react-easy-swipe';
-import fs from '../firestore';
+import {fs, db } from '../firestore';
 
 
 class Product extends PureComponent {
@@ -18,68 +18,76 @@ class Product extends PureComponent {
     };
   };
 
-  onSwipe() {
-    console.log('deleted!');
-    // this.props.onDelete(this.props.productId);
-  } 
+  _isMounted = false;
 
-  onTouch() {
-    const productId = this.props.productId
-    fs.collection('products')
-      .doc(productId)
-      .update({'checked': !this.state.checked})
+  onTouch = () => {
+    if (this.props.type === 'shopping')
+      {fs.switchCheck(this.props.productId, !this.state.checked);}
+    else if (this.props.type === 'products')
+      {fs.switchAdd(this.props.productId, !this.state.onList);}
   }
 
-  onSwipeStart() {
+  onSwipe = () => {
+    if (this.props.type === 'shopping')
+      {fs.switchAdd(this.props.productId, false);}
+    else if (this.props.type === 'products')
+      {fs.delete(this.props.productId)}
+  }
+  
+
+  onSwipeStart = () => {
     if (this.state.swipePosition < -3) {
-      this.setState({ isSwipping: true});
+      this.setState(() => ({ isSwipping: true}));
     }  
   }
 
-  onSwipeMove(position) {
+  onSwipeMove = (position) => {
     if (position.x < -50 && this.state.swipeEnabled) {
-      this.setState({swipePosition: position.x + 50})
+      this.setState(() => ({swipePosition: position.x + 50}))
     }
   }
 
-  onSwipeEnd() {
+  onSwipeEnd = () => {
 
     if (this.state.swipePosition < -3) {
-      this.setState({  
+      this.setState(() => ({  
         swipeEnabled: false,
         swipeAnimation: true,
         isSwipping: false
-      });
+      }));
   
       setTimeout(() => {
-        this.setState({ 
+        this.setState(() => ({ 
           swipeEnabled: true, 
           swipeAnimation: false,
-        });
+        }));
         }, 500 );
     }
   
     if (this.state.swipePosition < -125) {
-      this.setState({swipePosition: -window.innerWidth, deleted: true})
+      this.setState(() => ({swipePosition: -window.innerWidth, deleted: true}));
       setTimeout(() => { this.onSwipe(); }, 500 );
     } else {
-      this.setState({swipePosition: 0,})
+      this.setState(() => ({swipePosition: 0,}));
     }
   }
 
   componentDidMount(){
-    fs.collection('products')
-      .doc(this.props.productId)
-      .onSnapshot(doc => {
-        this.setState({
-          name: doc.data().name,
-          checked: doc.data().checked
-        });
-      })
+    this._isMounted = true;
+      db.collection('products')
+        .doc(this.props.productId)
+        .onSnapshot(doc => {
+          if (this._isMounted) {
+            this.setState({
+              name: doc.data().name,
+              checked: doc.data().checked,
+              onList: doc.data().onList
+            });
+          }
+        })
   }
 
-  render() {
-    
+  render() {   
 
     const style = {
       deleted: this.state.deleted ? '--deleted' : '',
@@ -90,14 +98,14 @@ class Product extends PureComponent {
       position: { transform: `translateX(${this.state.swipePosition}px)` }
     }
 
-    console.log(this.state);
+    console.log(this);
 
     return ( 
       <Swipe
-      onSwipeStart={this.onSwipeStart.bind(this)}
-      onSwipeMove={this.onSwipeMove.bind(this)}
-      onSwipeEnd={this.onSwipeEnd.bind(this)}
-      onClick={() => this.onTouch()}
+      onSwipeStart={this.onSwipeStart}
+      onSwipeMove={this.onSwipeMove}
+      onSwipeEnd={this.onSwipeEnd}
+      onClick={this.onTouch}
       className={ `c-product ${style.check} ${style.add} ${style.deleted}`} >
       <div className={`c-product-wrapper ${style.animation}`} style={style.position}>
         <div className={`c-product-container ${style.swipping}`}>
@@ -116,6 +124,12 @@ class Product extends PureComponent {
      
       </Swipe>
     );
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    const unsubscribe = db.collection('products').doc(this.props.productId).onSnapshot(() => {})
+    unsubscribe();
   }
 }
 

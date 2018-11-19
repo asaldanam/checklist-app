@@ -9,13 +9,13 @@ import Shopping from './pages/Shopping.js';
 import Products from './pages/Products.js';
 
 function Container ({location}) {
-
+  console.log(this);
   return (
     <TransitionGroup className={`o-app`}>
       <CSSTransition key={location.key} timeout={{ enter: 450, exit: 450 }} classNames={'fade'}>
         <Switch location={location}>
           <Route path="/" exact component={Shopping} />
-          {/* <Route path="/products" exact component={Products} /> */}
+          <Route path="/products" exact component={Products} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
@@ -35,6 +35,7 @@ class App extends Component {
   };
   
   render() {
+    console.log(this);
     return (
       <Router>
         <ContainerWithRouter></ContainerWithRouter>

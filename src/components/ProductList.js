@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import fs from '../firestore';
+import {db} from '../firestore';
 import Product from './Product';
 
 class ProductList extends Component {
@@ -18,38 +18,26 @@ class ProductList extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    fs.collection('products')
+    db.collection('products')
       .orderBy('name', 'asc')
       .onSnapshot(collection => {
-
-        const list = collection.docs.map(doc => {return {doc: doc, hide: false}})
-
+        const list = collection.docs.map(doc => ({
+          ref: doc.id,
+          filter: true
+        }))
         if(this._isMounted) {
           this.setState({
             loaded: true,
             list: list
           })
-          this.props.list(list);
         }
       });
   }
 
-  handleCheck(productId) {
-    const localDocState = this.state.list.filter(item => item.doc.id === productId)[0].doc.data().onList;
-    fs.collection('products')
-      .doc(productId)
-      .update({'onList': !localDocState, 'checked': false})
-  }
-
-  handleDelete(productId) {
-    fs.collection('products')
-      .doc(productId)
-      .delete()
-  }
 
   onRefresh() {
-    const batch = fs.batch();
-    fs.collection('products')
+    const batch = db.batch();
+    db.collection('products')
       .where('onList', '==', true)
       .get().then(items => {
         items.docs.forEach(doc => {
@@ -62,17 +50,15 @@ class ProductList extends Component {
   }
 
   render() {
+    console.log(this);
     if(this.state.loaded) {
       return ( 
         <div className="o-list">
           {this.state.list.map((item) => 
             <Product
-              onCheck={this.handleCheck.bind(this)}
-              onDelete={this.handleDelete.bind(this)}
-              key={item.doc.id}
-              productId={item.doc.id}
-              productData={item.doc.data()}
-              status={item.doc.data().onList ? '--checked' : '--plus-opacity'}
+              type={'products'}
+              key={item.ref}
+              productId={item.ref}
             />
           )}
         </div>
@@ -88,7 +74,7 @@ class ProductList extends Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-    const unsubscribe = fs.collection('products').onSnapshot(() => {})
+    const unsubscribe = db.collection('products').onSnapshot(() => {})
     unsubscribe();
   }
 }

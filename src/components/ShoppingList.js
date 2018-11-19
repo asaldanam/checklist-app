@@ -1,7 +1,7 @@
 
 
 import React, { PureComponent } from 'react';
-import fs from '../firestore';
+import {db} from '../firestore';
 import Product from './Product';
 
 class ShoppingList extends PureComponent {
@@ -18,8 +18,7 @@ class ShoppingList extends PureComponent {
 
   componentDidMount() {
     this._isMounted = true;
-
-    fs.collection('products')
+    db.collection('products')
       .where("onList", "==", true)
       .orderBy('name', 'asc')
       .onSnapshot(collection => {
@@ -27,23 +26,16 @@ class ShoppingList extends PureComponent {
           const list = collection.docs.map(doc => ({
             ref: doc.id,
           }))
-
           this.setState({
             loaded: true,
             list: list
           })
         }
-      });
-  }
-
-  handleDelete(productId) {
-    fs.collection('products')
-      .doc(productId)
-      .update({'onList': false})  
+    });
   }
 
   render() {
-    console.log(this.state);
+    console.log(this);
     if(this.state.loaded) {
       return ( 
         <React.Fragment>
@@ -67,7 +59,7 @@ class ShoppingList extends PureComponent {
 
   componentWillUnmount() {
     this._isMounted = false;
-    const unsubscribe = fs.collection('products').onSnapshot(() => {})
+    const unsubscribe = db.collection('products').onSnapshot(() => {})
     unsubscribe();
   }
 }
