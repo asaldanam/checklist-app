@@ -17,6 +17,7 @@ class Products extends Component {
   }
 
   render() {
+    console.log(this);
     return ( 
       <div className={`o-page ${this.props.history.action}`}>
         <Topbar
@@ -27,9 +28,7 @@ class Products extends Component {
           onRefresh={this.onRefresh.bind(this)}
         />
         <section className="o-section">
-          <ProductList 
-            ref={this.products}
-          />
+          <ProductList ref={this.products}/>
         </section>
       </div>
     );

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
+//Components
 import Searchbar from './Searchbar';
 
 // Images

@@ -107,6 +107,7 @@ body {
   .o-section {
     width: 100%;
     overflow-x: hidden;
+    // padding-top: 8px;
   }
 }
 
@@ -214,7 +215,7 @@ body {
     border-radius: 8px;
     padding: 8px 14px;
     padding-left: 12px + 16px + 12px;
-    // text-transform: capitalize;
+    height: 35px;
 
     &::placeholder {
       opacity: 0.25;
@@ -297,6 +298,7 @@ body {
     transition: all .3s ease-in-out;
     font-size: 16px;
     font-weight: 400;
+    text-transform: capitalize;
 
     & > span {
       position: relative;
@@ -336,6 +338,16 @@ body {
     }
 
     
+  }
+
+  &.--block-animation {
+    & > * {
+      transition: none !important;
+    }
+    .c-product-text {transition: none}
+    .c-product-text > span::before {transition: none}
+    .c-product-stateicon {transition: none}
+    .c-product-stateicon > * {transition: none}
   }
 
   &.--list {

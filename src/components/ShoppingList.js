@@ -1,10 +1,10 @@
 
 
-import React, { PureComponent } from 'react';
-import {db} from '../firestore';
+import React, { Component } from 'react';
+import {db, fs} from '../firestore';
 import Product from './Product';
 
-class ShoppingList extends PureComponent {
+class ShoppingList extends Component {
   
   constructor() {
     super();
@@ -26,13 +26,14 @@ class ShoppingList extends PureComponent {
           const list = collection.docs.map(doc => ({
             ref: doc.id,
           }))
-          this.setState({
+          this.setState(() => ({
             loaded: true,
             list: list
-          })
+          }));
         }
     });
   }
+  
 
   render() {
     console.log(this);
@@ -41,6 +42,7 @@ class ShoppingList extends PureComponent {
         <React.Fragment>
           {this.state.list.map((item) => 
             <Product
+              display={true}
               type={'shopping'}
               key={item.ref}
               productId={item.ref}

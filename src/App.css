@@ -158,7 +158,8 @@ body {
     outline: none;
     border-radius: 8px;
     padding: 8px 14px;
-    padding-left: 40px; }
+    padding-left: 40px;
+    height: 35px; }
     .c-searchbar .c-searchbar-input::placeholder {
       opacity: 0.25; }
 
@@ -223,7 +224,8 @@ body {
   .c-product .c-product-text {
     transition: all .3s ease-in-out;
     font-size: 16px;
-    font-weight: 400; }
+    font-weight: 400;
+    text-transform: capitalize; }
     .c-product .c-product-text > span {
       position: relative; }
       .c-product .c-product-text > span::before {
@@ -255,6 +257,16 @@ body {
       width: 11px;
       border-radius: 2px;
       transition: all .3s ease-in-out; }
+  .c-product.--block-animation > * {
+    transition: none !important; }
+  .c-product.--block-animation .c-product-text {
+    transition: none; }
+  .c-product.--block-animation .c-product-text > span::before {
+    transition: none; }
+  .c-product.--block-animation .c-product-stateicon {
+    transition: none; }
+  .c-product.--block-animation .c-product-stateicon > * {
+    transition: none; }
   .c-product.--list .c-product-stateicon .a {
     width: 12px;
     transform: translate(0px, 5px); }
