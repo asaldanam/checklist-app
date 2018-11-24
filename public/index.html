@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
 
-    <meta name="apple-mobile-web-app-title" content="La Lista">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="white">
-    <link rel="apple-touch-startup-image"
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Flaunch.png?alt=media&token=6d644ede-f002-4d04-a0ac-7a23fef0c36e">
+<head>
+  <meta charset="utf-8">
 
-    <link rel="apple-touch-icon"
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-384x384.png?alt=media&token=e62cdd39-63c3-477b-88ec-2a930e2d2647">
-    <link rel="apple-touch-icon" sizes="128x128" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-128x128.png?alt=media&token=6f0457a1-ed4a-4d56-b597-d025358b8ce3">
-    <link rel="apple-touch-icon" sizes="144x144" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-144x144.png?alt=media&token=6bbc5936-c616-4eb1-8fff-d70cf1df8cac">
-    <link rel="apple-touch-icon" sizes="152x152" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-152x152.png?alt=media&token=5d7c3d24-30b3-4af8-81c1-18c4a3986f31">
-    <link rel="apple-touch-icon" sizes="192x192" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-192x192.png?alt=media&token=597ef102-450f-4ef2-af61-d5cec96e5758">
-    <link rel="apple-touch-icon" sizes="384x384" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-384x384.png?alt=media&token=e62cdd39-63c3-477b-88ec-2a930e2d2647">
-    <link rel="apple-touch-icon" sizes="512x512" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-512x512.png?alt=media&token=f29d33c1-01f9-4128-bafb-eabef75466bd">
-    <link rel="apple-touch-icon" sizes="72x72" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-72x72.png?alt=media&token=48e1e593-9c86-4a3b-a218-5eb29dc0baf4"">
-    <link rel="apple-touch-icon" sizes="96x96" 
-      href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-96x96.png?alt=media&token=bc81d18d-d814-465b-a273-b1c90ae61c22">
+  <meta name="apple-mobile-web-app-title" content="La Lista">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
 
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <!--
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fiphone5_splash.png?alt=media&token=3070e5ae-7061-42ad-88bc-f9a6a621d16b"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fiphone6_splash.png?alt=media&token=5c6c18e5-8761-4a85-8d77-3f0417d5e6b4"
+    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fiphoneplus_splash.png?alt=media&token=f2d872d8-6853-4ab7-9590-e4118e08e62d"
+    media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fiphonex_splash.png?alt=media&token=2847f0f5-0e95-43b7-98c2-51d15a8ab65a"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fiphonexr_splash.png?alt=media&token=0b3ca43c-54bd-4c77-a296-e038fd9d9002"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fiphonexr_splash.png?alt=media&token=0b3ca43c-54bd-4c77-a296-e038fd9d9002"
+    media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fipad_splash.png?alt=media&token=82aa1525-6943-4b77-b539-17a362610e9a"
+    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fipadpro1_splash.png?alt=media&token=0412839f-e362-42a8-ace7-d305168f29eb"
+    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fipadpro3_splash.png?alt=media&token=47892151-8197-4b2c-8c77-693765e64ea8"
+    media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Fipadpro2_splash.png?alt=media&token=6b162694-73d9-4b2f-ac64-59f4b2ef8b45"
+    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+  <link rel="apple-touch-icon" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-384x384.png?alt=media&token=e62cdd39-63c3-477b-88ec-2a930e2d2647">
+  <link rel="apple-touch-icon" sizes="128x128" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-128x128.png?alt=media&token=6f0457a1-ed4a-4d56-b597-d025358b8ce3">
+  <link rel="apple-touch-icon" sizes="144x144" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-144x144.png?alt=media&token=6bbc5936-c616-4eb1-8fff-d70cf1df8cac">
+  <link rel="apple-touch-icon" sizes="152x152" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-152x152.png?alt=media&token=5d7c3d24-30b3-4af8-81c1-18c4a3986f31">
+  <link rel="apple-touch-icon" sizes="192x192" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-192x192.png?alt=media&token=597ef102-450f-4ef2-af61-d5cec96e5758">
+  <link rel="apple-touch-icon" sizes="384x384" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-384x384.png?alt=media&token=e62cdd39-63c3-477b-88ec-2a930e2d2647">
+  <link rel="apple-touch-icon" sizes="512x512" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-512x512.png?alt=media&token=f29d33c1-01f9-4128-bafb-eabef75466bd">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-72x72.png?alt=media&token=48e1e593-9c86-4a3b-a218-5eb29dc0baf4"">
+    <link rel="
+    apple-touch-icon" sizes="96x96" href="https://firebasestorage.googleapis.com/v0/b/asm-checklist-app.appspot.com/o/pwaimages%2Ficon-96x96.png?alt=media&token=bc81d18d-d814-465b-a273-b1c90ae61c22">
+
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -45,14 +57,15 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>La lista de la compra</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-    <!--
+  <title>La lista de la compra</title>
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -62,5 +75,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
