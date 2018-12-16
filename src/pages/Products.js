@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // Components
 import Topbar from '../components/Topbar';
 import ProductList from '../components/ProductList';
+import { fs } from '../firestore';
 
 class Products extends Component {
   
@@ -13,7 +14,7 @@ class Products extends Component {
   };
 
   onRefresh() {
-    this.products.current.onRefresh();
+    fs.refresh();
   }
 
   render() {
@@ -21,15 +22,14 @@ class Products extends Component {
       <div className={`o-page ${this.props.history.action}`}>
         <Topbar
           history={this.props.history}
-          displayBack={true} 
+          displayBack={true}
+          displayNewProduct={true} 
           title={'Productos'}
           searchbar={true}
-          onRefresh={this.onRefresh.bind(this)}
+          // onRefresh={this.onRefresh.bind(this)}
         />
         <section className="o-section">
-          <ProductList 
-            ref={this.products}
-          />
+          <ProductList ref={this.products}/>
         </section>
       </div>
     );

@@ -50,10 +50,30 @@ export const fs = {
   },
 
   delete: (docRef) => {
-    console.log('delete')
     db.collection('products')
       .doc(docRef)
       .delete()
+  },
+
+  addDoc: (data) => {
+    db.collection('products')
+      .add(data)
+      .then(() => {console.log('Documento creado con éxito')})
+      .catch(() => {console.error('Ha habido un error al crear el documento')})
+  },
+
+  refresh: () => {
+    const batch = db.batch();
+    db.collection('products')
+      .where('onList', '==', true)
+      .get().then(items => {
+        items.docs.forEach(doc => {
+          batch.update(doc.ref, {'onList': false, 'checked': false})
+        })
+        batch.commit()
+          .then(() => {console.log('El batch se ha realizado con éxito')})
+          .catch(() => {console.error('Ha habido un error con el batch')})
+      })
   }
 }
 

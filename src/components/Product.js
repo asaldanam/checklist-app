@@ -8,19 +8,22 @@ class Product extends PureComponent {
   constructor() {
     super();
     this.state = {
+      blockAnimation: true,
       deleted: false,
       swipePosition: 0,
       swipeEnabled: true,
       swipeAnimation: false,
       isSwipping: false,
       name: '',
-      checked: false
+      checked: false,
+      onList: false
     };
   };
 
   _isMounted = false;
 
   onTouch = () => {
+    this.setState(() => ({blockAnimation: false}));
     if (this.props.type === 'shopping')
       {fs.switchCheck(this.props.productId, !this.state.checked);}
     else if (this.props.type === 'products')
@@ -34,7 +37,6 @@ class Product extends PureComponent {
       {fs.delete(this.props.productId)}
   }
   
-
   onSwipeStart = () => {
     if (this.state.swipePosition < -3) {
       this.setState(() => ({ isSwipping: true}));
@@ -78,27 +80,26 @@ class Product extends PureComponent {
         .doc(this.props.productId)
         .onSnapshot(doc => {
           if (this._isMounted) {
-            this.setState({
+            this.setState(() => ({
               name: doc.data().name,
               checked: doc.data().checked,
-              onList: doc.data().onList
-            });
+              onList: doc.data().onList,
+            }));
           }
         })
   }
 
   render() {   
-
-    const style = {
+    const dyStyle = {
+      blockAnimation: this.state.blockAnimation ? '--block-animation' : '', 
+      display: this.props.display ? null : {display: 'none'},
       deleted: this.state.deleted ? '--deleted' : '',
       animation: this.state.swipeAnimation ? '--animation' : '',
       swipping: this.state.isSwipping && this.state.swipePosition < 0 ? '--swipping' : '',
-      check: this.props.type === 'shopping' ? this.state.checked ? '--checked-opacity' : '--list' : '',
+      check: this.props.type === 'shopping' ? this.state.checked  ? '--checked-opacity' : '--list' : '',
       add: this.props.type === 'products' ? this.state.onList ? '--checked' : '--plus-opacity' : '',
       position: { transform: `translateX(${this.state.swipePosition}px)` }
     }
-
-    console.log(this);
 
     return ( 
       <Swipe
@@ -106,9 +107,9 @@ class Product extends PureComponent {
       onSwipeMove={this.onSwipeMove}
       onSwipeEnd={this.onSwipeEnd}
       onClick={this.onTouch}
-      className={ `c-product ${style.check} ${style.add} ${style.deleted}`} >
-      <div className={`c-product-wrapper ${style.animation}`} style={style.position}>
-        <div className={`c-product-container ${style.swipping}`}>
+      className={ `c-product ${dyStyle.check} ${dyStyle.add} ${dyStyle.deleted} ${dyStyle.blockAnimation}`} style={dyStyle.display}>
+      <div className={`c-product-wrapper ${dyStyle.animation}`} style={dyStyle.position}>
+        <div className={`c-product-container ${dyStyle.swipping}`}>
           <div className="c-product-stateicon">
             <div className="a"></div>
             <div className="b"></div>

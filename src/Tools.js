@@ -46,7 +46,6 @@ export const tools = {
     if (prevState === state) {
     } else {
       const currentState = state;
-      console.log(diff(currentState, prevState));
       prevState = currentState;
     }
   },

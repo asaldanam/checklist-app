@@ -26,35 +26,37 @@ class ShoppingList extends PureComponent {
           const list = collection.docs.map(doc => ({
             ref: doc.id,
           }))
-          this.setState({
+          this.setState(() => ({
             loaded: true,
             list: list
-          })
+          }));
         }
     });
   }
-
+  
   render() {
-    console.log(this);
-    if(this.state.loaded) {
-      return ( 
+    return ( 
+      this.state.loaded ?
+        this.state.list.length !== 0 ?
+          <React.Fragment>
+            {this.state.list.map((item) => 
+              <Product
+                display={true}
+                type={'shopping'}
+                key={item.ref}
+                productId={item.ref}
+              />
+            )}
+          </React.Fragment>
+        :
+          <React.Fragment>
+            0 Results
+          </React.Fragment>
+      :
         <React.Fragment>
-          {this.state.list.map((item) => 
-            <Product
-              type={'shopping'}
-              key={item.ref}
-              productId={item.ref}
-            />
-          )}
+          Loading...
         </React.Fragment>
-      );
-    } else {
-      return ( 
-        <div className="o-section">
-          sin resultados
-        </div>
-      );
-    }
+    );
   }
 
   componentWillUnmount() {
