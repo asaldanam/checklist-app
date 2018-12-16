@@ -29,18 +29,22 @@ $color_darker: #262631;
 body {
   width: 100%;
   min-height: 100%;
-
   font-family: $font_main;
   color: $color_darker;
   font-weight: 400;
   width: 100%;
+  margin: 0%;
+  padding: 0%;
 
   ::-webkit-scrollbar {
-    background-color: red;
+    display: none;
+    background-color: transparent;
   }
 
   -webkit-user-select: none;
   -webkit-touch-callout: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   * {
     box-sizing: border-box;
@@ -55,7 +59,6 @@ body {
   height: 100%;
   background-color: #000;
   
-
   .o-page {
     width: 100%;
     min-height: 100%;
@@ -110,6 +113,15 @@ body {
     width: 100%;
     overflow-x: hidden;
     // padding-top: 8px;
+    &.--flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      & > * {
+        width: 100%;
+      } 
+    }
   }
 }
 
@@ -126,14 +138,11 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background-color: white;
-    // background-color: $color_blueGreyBg;
+    background-color: $color_darker;
     z-index: 99;
-    // transition: all 0.2s ease-in-out;
-    box-shadow: 0px 0px 16px 0px transparentize($color_darker, 0.9);
-    
+    transition: all 0.2s ease-in-out;
     &.--scrolled {
-      border-color: transparent;
+      box-shadow: 0px 0px 16px 0px transparentize($color_darker, 0.9);
     }
   }
 
@@ -148,7 +157,7 @@ body {
 
   .c-topbar-title {
     font-size: 24px;
-    color: $color_darker;
+    color: white;
     font-weight: 300;
   }
 
@@ -157,6 +166,12 @@ body {
     height: 64px;
     display: flex;
     align-items: center;
+    & > * {
+      height: 32px;
+      width: 32px;
+      margin-right: 8px;
+      &:last-child {margin-right: 0px;}
+    }
   }
 
   .c-topbar-iconback {
@@ -206,7 +221,7 @@ body {
   }
 
   .c-searchbar-input {
-    background-color: $color_blueGreyBg;
+    background-color: transparentize(white, 0.9);
     color: lighten(black, 50%);
     font-family: $font_main;
     font-size: 16px;
@@ -220,7 +235,7 @@ body {
     height: 35px;
 
     &::placeholder {
-      opacity: 0.25;
+      opacity: 0.5;
     }
   }
 
@@ -233,7 +248,6 @@ body {
   overflow-x: hidden;
   background-color: $color_blueGrey;
   transition: all 0.5s linear;
-  // border-bottom: 1px solid $color_blueGreyBg;
 
   &.--deleted {
     animation: deleted-item 500ms cubic-bezier(0.25, 0, 0, 1) forwards
@@ -263,7 +277,6 @@ body {
     font-size: 14px;
   }
   
-
   .c-product-container {
     height: 100%;
     width: calc(100% - 100px);
@@ -385,16 +398,61 @@ body {
   &.--plus-opacity {
     .c-product-stateicon {
       opacity: 0.2;
-      .a { width: 12px; transform: rotate(90deg) translate(1px, -8px); }
-      .b { width: 12px; transform: rotate(0deg) translate(1px, 6px); }
+      .a { width: 12px; transform: rotate(90deg) translate(0px, -7px); }
+      .b { width: 12px; transform: rotate(0deg) translate(0px, 5px); }
     }
     .c-product-text {
       opacity: 0.5;
-      & > span {
-        &::before {
-          width: 100%;
-        }
-      }
     }
+  }
+}
+
+.c-newproduct-input {
+  margin-top: 10%;
+  @include outerGaps();
+}
+
+.c-newproduct-submit {
+  margin-top: 18%;
+  @include outerGaps();
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.c-input {
+  font-family: $font_main;
+  font-size: 18px;
+  display: block;
+  border: none;
+  border-bottom: 1px solid $color_blueGreyLight;
+  width: 100%;
+  padding: 8px 0px;
+  outline: none;
+  border-radius: 0;
+  color: $color_darker;
+  &::placeholder {
+    color: $color_blueGreyLight;
+    opacity: 0.5;
+  }
+}
+
+.c-button {
+  font-family: $font_main;
+  text-transform: uppercase;
+  font-size: 14px;
+  background-color: $color_blueGrey;
+  letter-spacing: 0.75px;
+  border: none;
+  border-radius: 1000px;
+  color: white;
+  padding: 13px 24px 12px 24px;
+  width: 100%;
+  transition: all .3s linear;
+
+  &:disabled {
+    background-color: darken($color_blueGreyBg, 0%);
+    color: darken($color_blueGreyBg, 10%)
   }
 }

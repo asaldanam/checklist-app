@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 // Redux Actions
-import { addArticle, setFilter } from '../actions';
+import { setFilter } from '../actions';
 // Images
 import Search from '../assets/icon/search.svg';
 
@@ -25,7 +25,6 @@ class Searchbar extends Component {
   }
 
   render() {
-    console.log(this);
     return ( 
       <div className="c-searchbar">
         <div className="c-searchbar-container">

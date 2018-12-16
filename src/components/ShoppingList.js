@@ -1,10 +1,10 @@
 
 
-import React, { Component } from 'react';
-import {db, fs} from '../firestore';
+import React, { PureComponent } from 'react';
+import {db} from '../firestore';
 import Product from './Product';
 
-class ShoppingList extends Component {
+class ShoppingList extends PureComponent {
   
   constructor() {
     super();
@@ -34,29 +34,29 @@ class ShoppingList extends Component {
     });
   }
   
-
   render() {
-    console.log(this);
-    if(this.state.loaded) {
-      return ( 
+    return ( 
+      this.state.loaded ?
+        this.state.list.length !== 0 ?
+          <React.Fragment>
+            {this.state.list.map((item) => 
+              <Product
+                display={true}
+                type={'shopping'}
+                key={item.ref}
+                productId={item.ref}
+              />
+            )}
+          </React.Fragment>
+        :
+          <React.Fragment>
+            0 Results
+          </React.Fragment>
+      :
         <React.Fragment>
-          {this.state.list.map((item) => 
-            <Product
-              display={true}
-              type={'shopping'}
-              key={item.ref}
-              productId={item.ref}
-            />
-          )}
+          Loading...
         </React.Fragment>
-      );
-    } else {
-      return ( 
-        <div className="o-section">
-          sin resultados
-        </div>
-      );
-    }
+    );
   }
 
   componentWillUnmount() {

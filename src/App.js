@@ -7,15 +7,16 @@ import './App.css';
 // Pages
 import Shopping from './pages/Shopping.js';
 import Products from './pages/Products.js';
+import NewProduct from './pages/Newproduct.js';
 
 function Container ({location}) {
-  console.log(this);
   return (
     <TransitionGroup className={`o-app`}>
       <CSSTransition key={location.key} timeout={{ enter: 450, exit: 450 }} classNames={'fade'}>
         <Switch location={location}>
           <Route path="/" exact component={Shopping} />
           <Route path="/products" exact component={Products} />
+          <Route path="/new-product" exact component={NewProduct} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
@@ -35,7 +36,6 @@ class App extends Component {
   };
   
   render() {
-    console.log(this);
     return (
       <Router>
         <ContainerWithRouter></ContainerWithRouter>

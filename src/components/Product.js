@@ -90,7 +90,6 @@ class Product extends PureComponent {
   }
 
   render() {   
-    console.log(this.state.name, this.state);
     const dyStyle = {
       blockAnimation: this.state.blockAnimation ? '--block-animation' : '', 
       display: this.props.display ? null : {display: 'none'},

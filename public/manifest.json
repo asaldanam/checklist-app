@@ -1,6 +1,6 @@
 {
-  "name": "La lista de compra",
-  "short_name": "La Lista",
+  "name": "Mi compra",
+  "short_name": "Mi compra",
   "theme_color": "#262631",
   "background_color": "#f5f5f8",
   "display": "standalone",
