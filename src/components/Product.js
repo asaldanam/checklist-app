@@ -1,23 +1,23 @@
 import React, { PureComponent } from 'react';
 import Swipe from 'react-easy-swipe';
-import { connect } from "react-redux";
-import { switchItemCheckStatus } from './../redux';
+// import { connect } from "react-redux";
+// import { switchItemCheckStatus } from './../redux';
 
 import {fs, db } from '../firestore';
 
-const mapDispatch = dispatch => ({
-  switchItemCheckStatus: (checked, ref) => {
-    console.log(checked, ref)
-    return dispatch(switchItemCheckStatus(checked, ref))
-  },
-});
+// const mapDispatch = dispatch => ({
+//   switchItemCheckStatus: (checked, ref) => {
+//     return dispatch(switchItemCheckStatus(checked, ref))
+//   },
+// });
 
 class Product extends PureComponent {
 
   constructor() {
     super();
     this.state = {
-      blockAnimation: true,
+      loaded: false,
+      blockAnimation: false,
       deleted: false,
       swipePosition: 0,
       swipeEnabled: true,
@@ -31,8 +31,75 @@ class Product extends PureComponent {
 
   _isMounted = false;
 
+  componentDidMount(){
+    this._isMounted = true;
+      db.collection('products')
+        .doc(this.props.productId)
+        .onSnapshot(doc => {
+          if (this._isMounted) {
+            this.setState(() => ({
+              loaded: true,
+              name: doc.data().name,
+              checked: doc.data().checked,
+              onList: doc.data().onList,
+            }));
+          }
+        })
+  }
+
+  render() {
+    console.log(this.state.name, this.state)  
+    const dyStyle = {
+      blockAnimation: this.state.blockAnimation ? '--block-animation' : '', 
+      // display: this.props.display ? null : {display: 'none'},
+      styleProps: {
+        // display: this.props.display ? null : 'none',
+        animationDelay: this.props.delay + 'ms'
+      },
+      deleted: this.state.deleted ? '--deleted' : '',
+      animation: this.state.swipeAnimation ? '--animation' : '',
+      swipping: this.state.isSwipping && this.state.swipePosition < 0 ? '--swipping' : '',
+      check: this.props.type === 'shopping' ? this.state.checked  ? '--checked-opacity' : '--list' : '',
+      add: this.props.type === 'products' ? this.state.onList ? '--checked' : '--plus-opacity' : '',
+      position: { transform: `translateX(${this.state.swipePosition}px)` }
+    }
+
+    return (
+      this.state.loaded ? 
+        <Swipe
+        onSwipeStart={this.onSwipeStart}
+        onSwipeMove={this.onSwipeMove}
+        onSwipeEnd={this.onSwipeEnd}
+        onClick={this.onTouch}
+        className={ `c-product ${dyStyle.check} ${dyStyle.add} ${dyStyle.deleted} ${dyStyle.blockAnimation}`} style={dyStyle.styleProps}>
+        <div className={`c-product-wrapper ${dyStyle.animation}`} style={dyStyle.position}>
+          <div className={`c-product-container ${dyStyle.swipping}`}>
+            <div className="c-product-stateicon">
+              <div className="a"></div>
+              <div className="b"></div>
+            </div>
+            <div className="c-product-text">
+              <span> {this.state.name} </span>
+            </div>
+          </div>
+          <div className="c-product-swipeactions">
+            Eliminar
+          </div>
+        </div>
+      
+        </Swipe>
+        : null
+    );
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    const unsubscribe = db.collection('products').doc(this.props.productId).onSnapshot(() => {})
+    unsubscribe();
+  }
+
   onTouch = () => {
-    this.setState(() => ({blockAnimation: false}));
+
     if (this.props.type === 'shopping')
       // this.props.switchItemCheckStatus(!this.state.checked, this.props.productId)
       {fs.switchCheck(this.props.productId, !this.state.checked);}
@@ -41,6 +108,7 @@ class Product extends PureComponent {
   }
 
   onSwipe = () => {
+    // this.setState(() => ({blockAnimation: false}));
     if (this.props.type === 'shopping')
       {fs.switchAdd(this.props.productId, false);}
     else if (this.props.type === 'products')
@@ -83,70 +151,6 @@ class Product extends PureComponent {
       this.setState(() => ({swipePosition: 0,}));
     }
   }
-
-  componentDidMount(){
-    this._isMounted = true;
-      db.collection('products')
-        .doc(this.props.productId)
-        .onSnapshot(doc => {
-          if (this._isMounted) {
-            this.setState(() => ({
-              name: doc.data().name,
-              checked: doc.data().checked,
-              onList: doc.data().onList,
-            }));
-          }
-        })
-  }
-
-  render() {
-    console.log(this.state)  
-    const dyStyle = {
-      blockAnimation: this.state.blockAnimation ? '--block-animation' : '', 
-      // display: this.props.display ? null : {display: 'none'},
-      styleProps: {
-        display: this.props.display ? null : 'none',
-        animationDelay: this.props.delay + 'ms'
-      },
-      deleted: this.state.deleted ? '--deleted' : '',
-      animation: this.state.swipeAnimation ? '--animation' : '',
-      swipping: this.state.isSwipping && this.state.swipePosition < 0 ? '--swipping' : '',
-      check: this.props.type === 'shopping' ? this.state.checked  ? '--checked-opacity' : '--list' : '',
-      add: this.props.type === 'products' ? this.state.onList ? '--checked' : '--plus-opacity' : '',
-      position: { transform: `translateX(${this.state.swipePosition}px)` }
-    }
-
-    return ( 
-      <Swipe
-      onSwipeStart={this.onSwipeStart}
-      onSwipeMove={this.onSwipeMove}
-      onSwipeEnd={this.onSwipeEnd}
-      onClick={this.onTouch}
-      className={ `c-product ${dyStyle.check} ${dyStyle.add} ${dyStyle.deleted} ${dyStyle.blockAnimation}`} style={dyStyle.styleProps}>
-      <div className={`c-product-wrapper ${dyStyle.animation}`} style={dyStyle.position}>
-        <div className={`c-product-container ${dyStyle.swipping}`}>
-          <div className="c-product-stateicon">
-            <div className="a"></div>
-            <div className="b"></div>
-          </div>
-          <div className="c-product-text">
-            <span> {this.state.name} </span>
-          </div>
-        </div>
-        <div className="c-product-swipeactions">
-          Eliminar
-        </div>
-      </div>
-     
-      </Swipe>
-    );
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-    const unsubscribe = db.collection('products').doc(this.props.productId).onSnapshot(() => {})
-    unsubscribe();
-  }
 }
 
-export default connect(null, mapDispatch)(Product);
+export default Product;

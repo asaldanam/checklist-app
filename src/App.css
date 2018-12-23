@@ -180,9 +180,13 @@ body {
 .c-searchbar {
   padding-left: 16px;
   padding-right: 16px;
-  padding-bottom: 16px; }
+  padding-bottom: 16px;
+  display: flex; }
   .c-searchbar .c-searchbar-container {
-    position: relative; }
+    position: relative;
+    flex: 1 0 auto; }
+  .c-searchbar .c-searchbar-add {
+    margin-left: 8px; }
   .c-searchbar .c-searchbar-icon {
     position: absolute;
     width: 16px;

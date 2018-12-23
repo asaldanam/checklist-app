@@ -56,11 +56,11 @@ class Tobbar extends PureComponent {
                   <img src= {iconRefresh} alt=""/>
                 </div>
               : null}
-              {this.props.displayNewProduct ?
+              {/* {this.props.displayNewProduct ?
                 <Link to="/new-product">
                   <div><img src= {iconAdd} alt=""/></div>
                 </Link>                
-              : null}
+              : null} */}
               {this.props.displayProducts ? 
                 <Link to="/products">
                   <div><img src= {iconProducts} alt=""/></div>

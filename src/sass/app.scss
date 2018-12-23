@@ -231,9 +231,15 @@ body {
   // padding-top: 16px;
   // border-top: 1px solid $color_blueGreyBg;
   padding-bottom: 16px;
+  display: flex;
 
   .c-searchbar-container {
     position: relative;
+    flex: 1 0 auto;
+  }
+
+  .c-searchbar-add {
+    margin-left: 8px;
   }
 
   .c-searchbar-icon {

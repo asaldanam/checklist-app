@@ -32,7 +32,6 @@ class ShoppingList extends PureComponent {
               .map((item, index) => 
                 <Product
                   delay={index * 35}
-                  display={true}
                   type={'shopping'}
                   key={item.ref}
                   productId={item.ref}

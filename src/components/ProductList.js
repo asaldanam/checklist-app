@@ -30,7 +30,9 @@ class ProductList extends Component {
     return (
       this.state.loaded ?
         <Fragment>
-          {filteredList.map((item, index) => 
+          {filteredList
+            .filter(item => item.filter)
+            .map((item, index) => 
               <Product
                 key={item.ref}
                 delay={index * 35}
