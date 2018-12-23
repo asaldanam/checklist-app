@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 // Redux Actions
-import { setFilter } from '../actions';
+import { setFilter } from './../redux';
 // Images
 import Search from '../assets/icon/search.svg';
 
-const mapDispatch = dispatch => {
-  return {
-    setFilter: filterParam => dispatch(setFilter(filterParam))
-  };
-};
+const mapDispatch = dispatch => ({
+  setFilter: filterParam => dispatch(setFilter(filterParam)),
+});
 
 class Searchbar extends Component {
 
