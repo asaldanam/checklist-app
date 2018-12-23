@@ -1,7 +1,16 @@
 import React, { PureComponent } from 'react';
 import Swipe from 'react-easy-swipe';
+import { connect } from "react-redux";
+import { switchItemCheckStatus } from './../redux';
+
 import {fs, db } from '../firestore';
 
+const mapDispatch = dispatch => ({
+  switchItemCheckStatus: (checked, ref) => {
+    console.log(checked, ref)
+    return dispatch(switchItemCheckStatus(checked, ref))
+  },
+});
 
 class Product extends PureComponent {
 
@@ -25,6 +34,7 @@ class Product extends PureComponent {
   onTouch = () => {
     this.setState(() => ({blockAnimation: false}));
     if (this.props.type === 'shopping')
+      // this.props.switchItemCheckStatus(!this.state.checked, this.props.productId)
       {fs.switchCheck(this.props.productId, !this.state.checked);}
     else if (this.props.type === 'products')
       {fs.switchAdd(this.props.productId, !this.state.onList);}
@@ -89,10 +99,15 @@ class Product extends PureComponent {
         })
   }
 
-  render() {   
+  render() {
+    console.log(this.state)  
     const dyStyle = {
       blockAnimation: this.state.blockAnimation ? '--block-animation' : '', 
-      display: this.props.display ? null : {display: 'none'},
+      // display: this.props.display ? null : {display: 'none'},
+      styleProps: {
+        display: this.props.display ? null : 'none',
+        animationDelay: this.props.delay + 'ms'
+      },
       deleted: this.state.deleted ? '--deleted' : '',
       animation: this.state.swipeAnimation ? '--animation' : '',
       swipping: this.state.isSwipping && this.state.swipePosition < 0 ? '--swipping' : '',
@@ -107,7 +122,7 @@ class Product extends PureComponent {
       onSwipeMove={this.onSwipeMove}
       onSwipeEnd={this.onSwipeEnd}
       onClick={this.onTouch}
-      className={ `c-product ${dyStyle.check} ${dyStyle.add} ${dyStyle.deleted} ${dyStyle.blockAnimation}`} style={dyStyle.display}>
+      className={ `c-product ${dyStyle.check} ${dyStyle.add} ${dyStyle.deleted} ${dyStyle.blockAnimation}`} style={dyStyle.styleProps}>
       <div className={`c-product-wrapper ${dyStyle.animation}`} style={dyStyle.position}>
         <div className={`c-product-container ${dyStyle.swipping}`}>
           <div className="c-product-stateicon">
@@ -134,4 +149,4 @@ class Product extends PureComponent {
   }
 }
 
-export default Product;
+export default connect(null, mapDispatch)(Product);

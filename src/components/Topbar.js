@@ -20,22 +20,23 @@ class Tobbar extends PureComponent {
     };
   };
 
-  handleScroll(event) {
-    window.scrollY > this.state.scrollPosition ?
-      this.setState({ scrollDirection: 'down' })
-      : this.setState({ scrollDirection: 'up' })
+  // handleScroll(event) {
+  //   window.scrollY > this.state.scrollPosition ?
+  //     this.setState({ scrollDirection: 'down' })
+  //     : this.setState({ scrollDirection: 'up' })
 
-    this.setState({ scrollPosition: window.scrollY });
-  }
+  //   this.setState({ scrollPosition: window.scrollY });
+  // }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+    Router.bind(this);
+    // window.addEventListener('scroll', this.handleScroll.bind(this));
   }
 
 
   render() {
     const isTopStyle = this.state.scrollPosition > 0 ? '--scrolled': '';
-    const scrollDirectionStyle = '--' + this.state.scrollDirection;
+    // const scrollDirectionStyle = '--' + this.state.scrollDirection;
     const hasSearchbar = this.props.searchbar
     const searchbarPadding = hasSearchbar ? '--searchbar' : '';
 

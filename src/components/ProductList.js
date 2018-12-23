@@ -1,73 +1,56 @@
 
 
-import React, { PureComponent } from 'react';
-import {db} from '../firestore';
+import React, { Component, Fragment } from 'react';
 import Product from './Product';
+import ProductSkeleton from './ProductSkeleton';
 import { connect } from "react-redux";
 
-const mapState = state => ({ filter: state.filter });
+const mapState = state => ({ 
+  filter: state.filter,
+  list: state.list
+ });
 
-class ProductList extends PureComponent {
-  
+class ProductList extends Component {
+
   constructor() {
     super();
     this.state = {
-      loaded: false,
-      list: []
+      loaded: false
     };
   };
-
-  _isMounted = false;
   
-  filterList(list, filterParam) {
-    return list.map(product => product.name.includes(filterParam) ? {...product, filter: true } : {...product, filter: false })
-  }
 
   componentDidMount() {
-    this._isMounted = true;
-    db.collection('products')
-      .orderBy('name', 'asc')
-      .onSnapshot(collection => {
-        const list = collection.docs.map(doc => ({
-          ref: doc.id,
-          name: doc.data().name,
-          filter: true
-        }))
-        if(this._isMounted) {
-          this.setState(() => ({
-            loaded: true,
-            list: list
-          }));
-        }
-      });
+    setTimeout(() => this.setState(() => ({loaded: true})), 500)
   }
 
   render() {
-    const filteredList = this.filterList(this.state.list, this.props.filter)
+    const filteredList = this.filterList(this.props.list, this.props.filter)
 
-    return ( 
-    this.state.loaded ?
-      <React.Fragment>
-        {filteredList.map((item) => 
-            <Product
-              display={item.filter}
-              type={'products'}
-              key={item.ref}
-              productId={item.ref}
-            />
-        )}
-      </React.Fragment>
-    :
-      <React.Fragment>
-        Loading....
-      </React.Fragment>
+    return (
+      this.state.loaded ?
+        <Fragment>
+          {filteredList.map((item, index) => 
+              <Product
+                key={item.ref}
+                delay={index * 35}
+                display={item.filter}
+                type={'products'}
+                productId={item.ref}
+              />
+          )}
+        </Fragment>
+      :
+        <Fragment>
+          {Array(20).fill('').map((item, index) => 
+            <ProductSkeleton key={index} />
+          )}
+        </Fragment>
     );
   }
- 
-  componentWillUnmount() {
-    this._isMounted = false;
-    const unsubscribe = db.collection('products').onSnapshot(() => {})
-    unsubscribe();
+
+  filterList(list, filterParam) {
+    return list.map(product => product.name.includes(filterParam) ? {...product, filter: true } : {...product, filter: false })
   }
   
 }

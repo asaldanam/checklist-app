@@ -2,12 +2,19 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import { getProductsThunk } from './redux';
+import { connect } from "react-redux";
+
 import './App.css';
 
 // Pages
 import Shopping from './pages/Shopping.js';
 import Products from './pages/Products.js';
 import NewProduct from './pages/Newproduct.js';
+
+const mapDispatch = dispatch => ({
+  getProductsThunk: () => dispatch(getProductsThunk())
+});
 
 function Container ({location}) {
   return (
@@ -34,6 +41,10 @@ class App extends Component {
       scrollDirection: 'up'
     };
   };
+
+  componentDidMount() {
+    this.props.getProductsThunk();
+  }
   
   render() {
     return (
@@ -44,8 +55,6 @@ class App extends Component {
   }
 }
 
-
-
-export default App;
+export default connect(null, mapDispatch)(App);
 
 // export default App;
